@@ -6,14 +6,14 @@
       <!--front_chassis_part/Body.-->
       <origin rpy="0.0 -0.0 0.0" xyz="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="package://swarmfarm/meshes/swarmfarmv2_front_chassis_body.dae"/>
+        <mesh filename="package://sprayerbot/meshes/swarmfarmv2_front_chassis_body.dae"/>
       </geometry>
     </visual>
     <collision>
       <!--front_chassis_part/Body.-->
       <origin rpy="0.0 -0.0 0.0" xyz="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="package://swarmfarm/meshes/swarmfarmv2_front_chassis_body.dae"/>
+        <mesh filename="package://sprayerbot/meshes/swarmfarmv2_front_chassis_body.dae"/>
       </geometry>
     </collision>
     <inertial>
@@ -27,56 +27,56 @@
       <!--back_chassis_part/Body001.-->
       <origin rpy="0.0 -0.0 0.0" xyz="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="package://swarmfarm/meshes/swarmfarmv2_back_chassis_body.dae"/>
+        <mesh filename="package://sprayerbot/meshes/swarmfarmv2_back_chassis_body.dae"/>
       </geometry>
     </visual>
     <visual>
       <!--back_chassis_part/Body003.-->
       <origin rpy="0.0 -0.0 0.0" xyz="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="package://swarmfarm/meshes/swarmfarmv2_spray_liquid.dae"/>
+        <mesh filename="package://sprayerbot/meshes/swarmfarmv2_spray_liquid.dae"/>
       </geometry>
     </visual>
     <visual>
       <!--back_chassis_part/Body004.-->
       <origin rpy="0.0 -0.0 0.0" xyz="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="package://swarmfarm/meshes/swarmfarmv2_spray_boom.dae"/>
+        <mesh filename="package://sprayerbot/meshes/swarmfarmv2_spray_boom.dae"/>
       </geometry>
     </visual>
     <visual>
       <!--back_chassis_part/Body005.-->
       <origin rpy="0.0 -0.0 0.0" xyz="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="package://swarmfarm/meshes/swarmfarmv2_Body.dae"/>
+        <mesh filename="package://sprayerbot/meshes/swarmfarmv2_Body.dae"/>
       </geometry>
     </visual>
     <collision>
       <!--back_chassis_part/Body001.-->
       <origin rpy="0.0 -0.0 0.0" xyz="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="package://swarmfarm/meshes/swarmfarmv2_back_chassis_body.dae"/>
+        <mesh filename="package://sprayerbot/meshes/swarmfarmv2_back_chassis_body.dae"/>
       </geometry>
     </collision>
     <collision>
       <!--back_chassis_part/Body003.-->
       <origin rpy="0.0 -0.0 0.0" xyz="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="package://swarmfarm/meshes/swarmfarmv2_spray_liquid.dae"/>
+        <mesh filename="package://sprayerbot/meshes/swarmfarmv2_spray_liquid.dae"/>
       </geometry>
     </collision>
     <collision>
       <!--back_chassis_part/Body004.-->
       <origin rpy="0.0 -0.0 0.0" xyz="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="package://swarmfarm/meshes/swarmfarmv2_spray_boom.dae"/>
+        <mesh filename="package://sprayerbot/meshes/swarmfarmv2_spray_boom.dae"/>
       </geometry>
     </collision>
     <collision>
       <!--back_chassis_part/Body005.-->
       <origin rpy="0.0 -0.0 0.0" xyz="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="package://swarmfarm/meshes/swarmfarmv2_Body.dae"/>
+        <mesh filename="package://sprayerbot/meshes/swarmfarmv2_Body.dae"/>
       </geometry>
     </collision>
     <inertial>
@@ -90,14 +90,14 @@
       <!--wheel_part/Body002.-->
       <origin rpy="0.0 -0.0 3.14" xyz="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="package://swarmfarm/meshes/swarmfarmv2_wheel_body.dae"/>
+        <mesh filename="package://sprayerbot/meshes/swarmfarmv2_wheel_body.dae"/>
       </geometry>
     </visual>
     <collision>
       <!--wheel_part/Body002.-->
       <origin rpy="0.0 -0.0 0.0" xyz="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="package://swarmfarm/meshes/swarmfarmv2_wheel_body.dae"/>
+        <mesh filename="package://sprayerbot/meshes/swarmfarmv2_wheel_body.dae"/>
       </geometry>
     </collision>
     <inertial>
@@ -111,14 +111,14 @@
       <!--wheel_part/Body002.-->
       <origin rpy="0.0 -0.0 0" xyz="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="package://swarmfarm/meshes/swarmfarmv2_wheel_body.dae"/>
+        <mesh filename="package://sprayerbot/meshes/swarmfarmv2_wheel_body.dae"/>
       </geometry>
     </visual>
     <collision>
       <!--wheel_part/Body002.-->
       <origin rpy="0.0 -0.0 0.0" xyz="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="package://swarmfarm/meshes/swarmfarmv2_wheel_body.dae"/>
+        <mesh filename="package://sprayerbot/meshes/swarmfarmv2_wheel_body.dae"/>
       </geometry>
     </collision>
     <inertial>
@@ -132,14 +132,14 @@
       <!--wheel_part/Body002.-->
       <origin rpy="0.0 -0.0 3.14" xyz="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="package://swarmfarm/meshes/swarmfarmv2_wheel_body.dae"/>
+        <mesh filename="package://sprayerbot/meshes/swarmfarmv2_wheel_body.dae"/>
       </geometry>
     </visual>
     <collision>
       <!--wheel_part/Body002.-->
       <origin rpy="0.0 -0.0 0.0" xyz="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="package://swarmfarm/meshes/swarmfarmv2_wheel_body.dae"/>
+        <mesh filename="package://sprayerbot/meshes/swarmfarmv2_wheel_body.dae"/>
       </geometry>
     </collision>
     <inertial>
@@ -153,14 +153,14 @@
       <!--wheel_part/Body002.-->
       <origin rpy="0.0 -0.0 0.0" xyz="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="package://swarmfarm/meshes/swarmfarmv2_wheel_body.dae"/>
+        <mesh filename="package://sprayerbot/meshes/swarmfarmv2_wheel_body.dae"/>
       </geometry>
     </visual>
     <collision>
       <!--wheel_part/Body002.-->
       <origin rpy="0.0 -0.0 0.0" xyz="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="package://swarmfarm/meshes/swarmfarmv2_wheel_body.dae"/>
+        <mesh filename="package://sprayerbot/meshes/swarmfarmv2_wheel_body.dae"/>
       </geometry>
     </collision>
     <inertial>
