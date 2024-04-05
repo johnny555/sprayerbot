@@ -11,13 +11,14 @@
         <mesh filename="file://$(find sprayerbot)/robot_description/meshes/swarmfarmv2_front_chassis_body.dae"/>
       </geometry>
     </visual>
+    <!-- 
     <collision>
-      <!--front_chassis_part/Body.-->
       <origin rpy="0.0 -0.0 0.0" xyz="0.0 0.0 0.0"/>
       <geometry>
         <mesh filename="file://$(find sprayerbot)/robot_description/meshes/swarmfarmv2_front_chassis_body.dae"/>
       </geometry>
     </collision>
+    -->
 
     <xacro:box_inertial x="1" y="1" z="1" mass="20" />
 
