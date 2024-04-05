@@ -10,7 +10,7 @@ from launch_ros.parameter_descriptions import ParameterValue
 
 def generate_launch_description():
     pkg_share = Path(launch_ros.substitutions.FindPackageShare(package='sprayerbot').find('sprayerbot'))
-    default_model_path = pkg_share / 'urdf/swarm_farm.urdf'
+    default_model_path = pkg_share / 'robot_description/sprayer.urdf.xacro'
     default_rviz_config_path = pkg_share / 'rviz/robot_description.rviz'
 
     robot_state_publisher_node = launch_ros.actions.Node(
