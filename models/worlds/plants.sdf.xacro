@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="swarm_farm">
+
+
+<xacro:macro name="outer_loop" params="y" >
+
+    <xacro:macro name="loop" params="x" >
+        <include>
+        <uri>model://big_plant</uri>
+        <name>big_plant_${7-x}_${7-y}</name>
+        <pose>${7-x} ${7-y} 0 0 -0 0</pose>
+        </include>
+        <xacro:if value="${x}">
+            <xacro:loop x="${x-1}" />
+        </xacro:if>
+    </xacro:macro>
+    
+    <xacro:loop x="15" />
+
+    <xacro:if value="${y}" >
+        <xacro:outer_loop y="${y-1}" />
+    </xacro:if>
+
+</xacro:macro> 
+
+<xacro:outer_loop y="15" />
+
+</robot>

@@ -28,11 +28,16 @@
           </plane>
         </geometry>
         <material>
-          <script>
-            <uri>model://field_plate/materials/scripts</uri>
-            <uri>model://field_plate/materials/textures</uri>
-            <name>FloorWalls1/Image</name>
-          </script>
+          <diffuse>1.0 1.0 1.0</diffuse>
+          <specular>1.0 1.0 1.0</specular>
+          <pbr>
+              <metal>
+                  <metalness>0</metalness>
+                  <albedo_map>materials/textures/floor.png</albedo_map>
+ 
+              </metal>
+
+          </pbr>
         </material>
       </visual>
     </link>
