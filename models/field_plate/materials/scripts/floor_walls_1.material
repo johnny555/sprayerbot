@@ -1,0 +1,13 @@
+material FloorWalls1/Image
+{
+  technique
+  {
+    pass
+    {
+		texture_unit
+		{
+			texture ../textures/floor.png
+		}
+    }
+  }
+}

@@ -11,9 +11,11 @@ def generate_launch_description():
 
     # Start a simulation with the cafe world
     path = join(get_package_share_directory("ros_gz_sim"), "launch", "gz_sim.launch.py")
-    
+    sprayer_path = get_package_share_directory("sprayerbot")
+    world_file = join(sprayer_path, "models", "worlds", "ag_world.sdf")
+
     gazebo_sim = IncludeLaunchDescription(path,
-                                          launch_arguments=[("gz_args", "empty.sdf")])
+                                          launch_arguments=[("gz_args", world_file)])
 
     # Create a robot in the world.
     # Steps: 
