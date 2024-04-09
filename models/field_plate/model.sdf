@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <sdf version="1.4">
-<model name="field_plate">
-  <static>true</static>
+  <model name="field_plate">
+    <static>true</static>
     <link name="link">
       <collision name="collision">
         <geometry>
@@ -22,23 +22,10 @@
       <visual name="visual">
         <cast_shadows>true</cast_shadows>
         <geometry>
-          <plane>
-            <normal>0 0 1</normal>
-            <size>50 50</size>
-          </plane>
+          <mesh>
+            <uri>plate.dae</uri>
+          </mesh>
         </geometry>
-        <material>
-          <diffuse>1.0 1.0 1.0</diffuse>
-          <specular>1.0 1.0 1.0</specular>
-          <pbr>
-              <metal>
-                  <metalness>0</metalness>
-                  <albedo_map>materials/textures/floor.png</albedo_map>
- 
-              </metal>
-
-          </pbr>
-        </material>
       </visual>
     </link>
   </model>

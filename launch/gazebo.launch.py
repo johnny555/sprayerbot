@@ -1,11 +1,12 @@
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription
-from launch_param_builder import load_xacro
+from launch.actions import IncludeLaunchDescription , AppendEnvironmentVariable
 from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
 from os.path import join 
 from launch.substitutions import Command
 from pathlib import Path
+from launch_ros.parameter_descriptions import ParameterValue
+
 
 def generate_launch_description():
 
@@ -14,8 +15,10 @@ def generate_launch_description():
     sprayer_path = get_package_share_directory("sprayerbot")
     world_file = join(sprayer_path, "models", "worlds", "ag_world.sdf")
 
+    #world_file="empty.sdf"
     gazebo_sim = IncludeLaunchDescription(path,
-                                          launch_arguments=[("gz_args", world_file)])
+                                          launch_arguments=[("gz_args", world_file),
+                                                             ("gz_version", "8")])
 
     # Create a robot in the world.
     # Steps: 
@@ -25,16 +28,17 @@ def generate_launch_description():
 
     # Step 1. Process robot file. 
     robot_file = join(get_package_share_directory("sprayerbot"), "robot_description","sprayer.urdf.xacro")
-    robot_xml = load_xacro(Path(robot_file))
 
     #Step 2. Publish robot file to ros topic /robot_description & static joint positions to /tf
+
     robot_state_publisher = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
-        name='robot_state_publisher',
-        output='both',
-        parameters=[{'robot_description':robot_xml, 
-                     'use_sim_time':True}],
+        parameters=[{
+            'robot_description': ParameterValue(
+                Command(['xacro ', str(robot_file)]), value_type=str
+            )
+        }]
     )
 
     # Step 3. Spawn a robot in gazebo by listening to the published topic.
@@ -78,8 +82,16 @@ def generate_launch_description():
         executable="rqt_robot_steering",
     )
 
-    
+    # Twist Stamper
 
-    return LaunchDescription([gazebo_sim, bridge, robot, 
+    stamper = Node(package="twist_stamper", executable="twist_stamper", 
+                   remappings=[("cmd_vel_in","/cmd_vel"),
+                              ("cmd_vel_out", "/diff_drive_base_controller/cmd_vel")])
+    
+    # Adds the models to the path so Gazebo can find them. 
+    model_path = AppendEnvironmentVariable("IGN_GAZEBO_RESOURCE_PATH", join(sprayer_path, "models"))
+    
+ # GZ_SIM_RESOURCE_PATH=$IGN_GAZEBO_RESOURCE_PATH
+    return LaunchDescription([gazebo_sim,  robot, bridge,
                               robot_steering, robot_state_publisher,
-                              start_controllers])
+                              start_controllers, stamper, model_path])

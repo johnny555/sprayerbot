@@ -46,13 +46,7 @@
         <mesh filename="file://$(find sprayerbot)/robot_description/meshes/swarmfarmv2_spray_boom.dae"/>
       </geometry>
     </visual>
-    <visual>
-      <!--back_chassis_part/Body005.-->
-      <origin rpy="0.0 -0.0 0.0" xyz="0.0 0.0 0.0"/>
-      <geometry>
-        <mesh filename="file://$(find sprayerbot)/robot_description/meshes/swarmfarmv2_Body.dae"/>
-      </geometry>
-    </visual>
+
 
     <xacro:box_inertial x="1" y="1" z="1" mass="20" />
   </link>
@@ -147,21 +141,17 @@
 
 
   <gazebo>
-    <plugin filename="ign_ros2_control-system" name="ign_ros2_control::IgnitionROS2ControlPlugin">
+    <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
       <ros>
         <remapping>diff_drive_base_controller/odometry:=odom</remapping>
         <remapping>diff_drive_base_controller/tf_odometry:=tf</remapping>
         <remapping>diff_drive_base_controller/cmd_vel_unstamped:=cmd_vel</remapping>
+        <remapping>/controller_manager/robot_description:=/robot_description</remapping>
       </ros>
       <parameters>$(find sprayerbot)/config/diffdrive_control.yaml</parameters>
     </plugin>
 
-    <plugin filename="ignition-gazebo-imu-system" name="gz::sim::systems::Imu">
-    </plugin>
 
-    <plugin filename="ignition-gazebo-sensors-system" name="ignition::gazebo::systems::Sensors">
-      <render_engine>ogre2</render_engine>
-    </plugin>
   </gazebo>
 
 </robot>
