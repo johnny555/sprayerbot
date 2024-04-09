@@ -91,8 +91,24 @@ def generate_launch_description():
     
     # Adds the models to the path so Gazebo can find them. 
     model_path = AppendEnvironmentVariable("IGN_GAZEBO_RESOURCE_PATH", join(sprayer_path, "models"))
+
+    navsat_transform = Node(
+        package="robot_localization", 
+        executable="navsat_transform_node",
+        name="navsat_transform_node",
+        output="screen",
+        parameters=[join(path, "config", "navsat.yaml")]
+    )
+
+    ukf = Node(
+        package='robot_localization',
+        executable='ukf_node',
+        name='ukf_filter_node',
+        output='screen'
+        parameters=[join(path, "config", 'ukf.yaml')]
+    )
     
  # GZ_SIM_RESOURCE_PATH=$IGN_GAZEBO_RESOURCE_PATH
     return LaunchDescription([gazebo_sim,  robot, bridge,
                               robot_steering, robot_state_publisher,
-                              start_controllers, stamper, model_path])
+                              start_controllers, stamper, model_path, navsat_transform, ukf])

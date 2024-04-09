@@ -13,6 +13,6 @@ from os.path import join
 def generate_launch_description():
 
     base_path = get_package_share_directory("sprayerbot")
-    disp = IncludeLaunchDescription(join(base_path, "launch","display.launch.py"))
+    disp = IncludeLaunchDescription(join(base_path, "launch","gazebo.launch.py"))
 
     return LaunchDescription([disp])
