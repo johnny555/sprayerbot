@@ -63,7 +63,8 @@ def generate_launch_description():
                    '/realsense/image@sensor_msgs/msg/Image[gz.msgs.Image',
                    '/realsense/depth@sensor_msgs/msg/Image[gz.msgs.Image',
                    '/realsense/points@sensor_msgs/msg/PointCloud2[gz.msgs.PointCloudPacked',
-                   '/imu@sensor_msgs/msg/Imu[ignition.msgs.IMU'
+                   '/imu@sensor_msgs/msg/Imu[ignition.msgs.IMU',
+                   '/navsat@gps_msgs/msg/GPSFix[gz.msgs.NavSat'
                    ],
         output='screen'
         )

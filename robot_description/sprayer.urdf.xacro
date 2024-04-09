@@ -143,15 +143,26 @@
   <gazebo>
     <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
       <ros>
-        <remapping>diff_drive_base_controller/odometry:=odom</remapping>
-        <remapping>diff_drive_base_controller/tf_odometry:=tf</remapping>
-        <remapping>diff_drive_base_controller/cmd_vel_unstamped:=cmd_vel</remapping>
+        <remapping>/diff_drive_base_controller/odometry:=odom</remapping>
+        <remapping>/diff_drive_base_controller/tf_odometry:=tf</remapping>
+        <remapping>/diff_drive_base_controller/cmd_vel_unstamped:=cmd_vel</remapping>
         <remapping>/controller_manager/robot_description:=/robot_description</remapping>
       </ros>
       <parameters>$(find sprayerbot)/config/diffdrive_control.yaml</parameters>
     </plugin>
 
+    <plugin filename="gz-sim-navsat-system" name="gz::sim::systems::NavSat">
+    </plugin>
 
+  </gazebo>
+
+  <gazebo reference="front_chassis_link">
+    <sensor name="navsat" type="navsat">
+      <always_on>1</always_on>
+      <update_rate>1</update_rate>
+      <topic>navsat</topic>
+      <frame_id>front_chassis_link</frame_id>
+    </sensor>
   </gazebo>
 
 </robot>
