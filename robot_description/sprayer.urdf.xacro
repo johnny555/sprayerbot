@@ -4,7 +4,7 @@
 
   <link name="base_link" />
 
-  <joint name="chassis_joint" type="fixed">
+  <joint name="base_link_to_front_chasis_joint" type="fixed">
     <child link="front_chassis_link"/>
     <parent link="base_link"/>
     <origin rpy="0.0 -0.0 0.0" xyz="0.0 0.0 0.0"/>
@@ -145,6 +145,21 @@
       <state_interface name="velocity"/>
       <state_interface name="effort" />
     </joint>
+
+    <joint name="chassis_joint">
+      <state_interface name="position" />
+      <state_interface name="velocity" />
+    </joint>
+
+    <joint name="back_right_wheel_joint">
+      <state_interface name="position" />
+      <state_interface name="velocity" />
+    </joint>
+
+    <joint name="back_left_wheel_joint">
+      <state_interface name="position" />
+      <state_interface name="velocity" />
+    </joint>
   </ros2_control>
 
 
@@ -170,6 +185,14 @@
       <update_rate>1</update_rate>
       <topic>navsat</topic>
       <frame_id>front_chassis_link</frame_id>
+    </sensor>
+
+    <sensor name="imu" type="imu">
+      <always_on>1</always_on>
+      <update_rate>100</update_rate>
+      <visualize>true</visualize>
+      <topic>imu</topic>
+      <enable_metrics>true</enable_metrics>
     </sensor>
   </gazebo>
 
