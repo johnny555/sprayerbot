@@ -184,7 +184,7 @@
       <always_on>1</always_on>
       <update_rate>1</update_rate>
       <topic>navsat</topic>
-      <frame_id>front_chassis_link</frame_id>
+      <gz_frame_id>front_chassis_link</gz_frame_id>
     </sensor>
 
     <sensor name="imu" type="imu">
@@ -193,6 +193,7 @@
       <visualize>true</visualize>
       <topic>imu</topic>
       <enable_metrics>true</enable_metrics>
+      <gz_frame_id>front_chasis_link</gz_frame_id>
     </sensor>
   </gazebo>
 

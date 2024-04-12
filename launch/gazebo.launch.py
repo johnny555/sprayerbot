@@ -14,8 +14,8 @@ def generate_launch_description():
     gz_sim_path = join(get_package_share_directory("ros_gz_sim"), "launch", "gz_sim.launch.py")
     sprayer_path = get_package_share_directory("sprayerbot")
     world_file = join(sprayer_path, "models", "worlds", "ag_world.sdf")
-
-    #world_file="empty.sdf"
+    
+    world_file="empty.sdf"
     gazebo_sim = IncludeLaunchDescription(gz_sim_path,
                                           launch_arguments=[("gz_args", world_file),
                                                              ("gz_version", "8")])
@@ -64,7 +64,7 @@ def generate_launch_description():
                    '/realsense/depth@sensor_msgs/msg/Image[gz.msgs.Image',
                    '/realsense/points@sensor_msgs/msg/PointCloud2[gz.msgs.PointCloudPacked',
                    '/imu@sensor_msgs/msg/Imu[ignition.msgs.IMU',
-                   '/navsat@gps_msgs/msg/GPSFix[gz.msgs.NavSat',
+                   '/navsat@sensor_msgs/msg/NavSatFix[gz.msgs.NavSat',
                    '/imu@sensor_msgs/msg/imu[gz.msgs.IMU',
                    ],
         output='screen'
@@ -99,24 +99,24 @@ def generate_launch_description():
         name="navsat_transform_node",
         output="screen",
         parameters=[join(sprayer_path, "config", "navsat.yaml")],
-        remappings=[("/gps/fix","/navsat")]
+        remappings=[("/gps/fix","/navsat")],
     )
 
-    ukf = Node(
+    local_localization = Node(
         package='robot_localization',
-        executable='ukf_node',
-        name='ukf_filter_node',
+        executable='ekf_node',
+        name='local_localization',
         output='screen',
-        parameters=[join(sprayer_path, "config", 'ukf.yaml')],
-        remappings=[('/odometry/filtered', '/local_odometry')]
+        parameters=[join(sprayer_path, "config", 'local_localization.yaml')]
     )
     
-    ekf = Node(
+    global_localization = Node(
         package='robot_localization',
-        executable='ukf_node',
-        name='ekf_filter_node',
+        executable='ekf_node',
+        name='global_localization',
         output='screen',
-        parameters=[join(sprayer_path, "config", 'ekf.yaml')]
+        parameters=[join(sprayer_path, "config", 'global_localization.yaml')],
+        remappings=[("/odometry/filtered", "/global_odom")]
     )
     
 
@@ -125,9 +125,10 @@ def generate_launch_description():
         executable='rviz2',
         arguments=[
             '-d',
-            PathJoinSubstitution([sprayer_path, 'config', 'rviz.rviz'])]
+            PathJoinSubstitution([sprayer_path, 'config', 'rviz.rviz'])],
+        parameters=[('use_sim_time',"True")]
     )
 
     return LaunchDescription([gazebo_sim,  robot, bridge, stamper,
                               robot_steering, robot_state_publisher,
-                              start_controllers,  model_path, navsat_transform, ukf, ekf, rviz])
+                              start_controllers,  model_path, navsat_transform, local_localization, global_localization, rviz])
