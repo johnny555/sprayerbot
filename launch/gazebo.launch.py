@@ -1,12 +1,12 @@
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription , AppendEnvironmentVariable
+from launch.actions import IncludeLaunchDescription , AppendEnvironmentVariable, GroupAction, DeclareLaunchArgument
 from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
 from os.path import join 
 from launch.substitutions import Command, PathJoinSubstitution
 from pathlib import Path
 from launch_ros.parameter_descriptions import ParameterValue
-
+import os
 
 def generate_launch_description():
 
@@ -15,7 +15,7 @@ def generate_launch_description():
     sprayer_path = get_package_share_directory("sprayerbot")
     world_file = join(sprayer_path, "models", "worlds", "ag_world.sdf")
     
-    world_file="empty.sdf"
+    #world_file="empty.sdf"
     gazebo_sim = IncludeLaunchDescription(gz_sim_path,
                                           launch_arguments=[("gz_args", world_file),
                                                              ("gz_version", "8")])
@@ -58,14 +58,8 @@ def generate_launch_description():
         package='ros_gz_bridge',
         executable='parameter_bridge',
         arguments=['/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock',
-                   '/lidar@sensor_msgs/msg/LaserScan@gz.msgs.LaserScan',
-                   '/lidar/points@sensor_msgs/msg/PointCloud2[gz.msgs.PointCloudPacked',
-                   '/realsense/image@sensor_msgs/msg/Image[gz.msgs.Image',
-                   '/realsense/depth@sensor_msgs/msg/Image[gz.msgs.Image',
-                   '/realsense/points@sensor_msgs/msg/PointCloud2[gz.msgs.PointCloudPacked',
-                   '/imu@sensor_msgs/msg/Imu[ignition.msgs.IMU',
                    '/navsat@sensor_msgs/msg/NavSatFix[gz.msgs.NavSat',
-                   '/imu@sensor_msgs/msg/imu[gz.msgs.IMU',
+                   '/imu/data@sensor_msgs/msg/Imu@gz.msgs.IMU',
                    ],
         output='screen'
         )
@@ -93,32 +87,42 @@ def generate_launch_description():
     # Adds the models to the path so Gazebo can find them. 
     model_path = AppendEnvironmentVariable("IGN_GAZEBO_RESOURCE_PATH", join(sprayer_path, "models"))
 
-    navsat_transform = Node(
-        package="robot_localization", 
-        executable="navsat_transform_node",
-        name="navsat_transform_node",
-        output="screen",
-        parameters=[join(sprayer_path, "config", "navsat.yaml")],
-        remappings=[("/gps/fix","/navsat")],
-    )
+    robot_localization_dir = get_package_share_directory('robot_localization')
+    parameters_file_dir = join(sprayer_path, 'config')
+    parameters_file_path = join(sprayer_path, 'example_config.yaml')
+    
+    os.environ['FILE_PATH'] = str(parameters_file_dir)
 
-    local_localization = Node(
-        package='robot_localization',
-        executable='ekf_node',
-        name='local_localization',
-        output='screen',
-        parameters=[join(sprayer_path, "config", 'local_localization.yaml')]
-    )
-    
-    global_localization = Node(
-        package='robot_localization',
-        executable='ekf_node',
-        name='global_localization',
-        output='screen',
-        parameters=[join(sprayer_path, "config", 'global_localization.yaml')],
-        remappings=[("/odometry/filtered", "/global_odom")]
-    )
-    
+   
+    local_filter =  Node(
+                package='robot_localization', 
+                executable='ekf_node', 
+                name='local_localization',
+                output='screen',
+                parameters=[join(parameters_file_dir, "local_localization.yaml")],
+                remappings=[('odometry/filtered', 'odometry/local')]    
+
+            )
+    global_filter =    Node(
+                package='robot_localization', 
+                executable='ekf_node', 
+                name='global_localization',
+                output='screen',
+                parameters=[join(parameters_file_dir, "global_localization.yaml")]                    
+            )           
+    nav_transform = Node(
+                package='robot_localization', 
+                executable='navsat_transform_node', 
+                name='navsat_transform_node',
+                output='screen',
+                parameters=[join(parameters_file_dir, "navsat.yaml")],
+                remappings=[
+                            ('gps/fix', '/navsat'),
+                            ('imu','/imu/data')
+                            ]           
+
+            )   
+
 
     rviz = Node(
         package='rviz2',
@@ -131,4 +135,4 @@ def generate_launch_description():
 
     return LaunchDescription([gazebo_sim,  robot, bridge, stamper,
                               robot_steering, robot_state_publisher,
-                              start_controllers,  model_path, navsat_transform, local_localization, global_localization, rviz])
+                              start_controllers,  model_path, local_filter, global_filter, nav_transform, rviz])
