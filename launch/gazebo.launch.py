@@ -99,7 +99,7 @@ def generate_launch_description():
                 executable='ekf_node', 
                 name='local_localization',
                 output='screen',
-                parameters=[join(parameters_file_dir, "local_localization.yaml")],
+                parameters=[join(parameters_file_dir, "example_config.yaml")],
                 remappings=[('odometry/filtered', 'odometry/local')]    
 
             )
@@ -108,7 +108,7 @@ def generate_launch_description():
                 executable='ekf_node', 
                 name='global_localization',
                 output='screen',
-                parameters=[join(parameters_file_dir, "global_localization.yaml")]                    
+                parameters=[join(parameters_file_dir, "example_config.yaml")]                    
             )           
     nav_transform = Node(
                 package='robot_localization', 

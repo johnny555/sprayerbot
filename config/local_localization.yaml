@@ -9,7 +9,7 @@ local_localization:
     base_link_frame: base_link
     world_frame: odom
 
-    debug: false
+    debug: true
 
     # Defaults to "robot_localization_debug.txt" if unspecified. Please specify the full path.
     debug_out_file: local_debug.txt
@@ -17,22 +17,24 @@ local_localization:
     odom0: /diff_drive_base_controller/odom
     odom0_config:
       [
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        true,
         true,
         true,
         false,
         false,
+        false,
         true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
         false,
         false,
         false,
       ]
+
+    odom0_queue_size: 10
 
     imu0: imu/data
     imu0_config:
@@ -53,3 +55,8 @@ local_localization:
         false,
         false,
       ]
+    imu0_nodelay: true
+    imu0_differential: false
+    imu0_relative: false
+    imu0_queue_size: 10
+    imu0_remove_gravitational_acceleration: true
